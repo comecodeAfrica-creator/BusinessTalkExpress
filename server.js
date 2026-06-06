@@ -8,8 +8,16 @@ const router  = express.Router();
 //  Middleware
 router.use(express.json());
 
+const ALLOWED_ORIGINS = [
+    'https://www.comecodeafrica.com',
+    'https://comecodeafrica.com',
+];
+
 router.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin',  '*');
+    const origin = req.headers.origin;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+        res.append('Access-Control-Allow-Origin', origin);
+    }
     res.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     if (req.method === 'OPTIONS') return res.sendStatus(200);
@@ -109,20 +117,20 @@ router.post('/submit', (req, res) => {
         email,
         phone,
         location,
-        gender         || null,
-        role           || null,
-        has_business   || null,
-        business_name  || null,
-        position       || null,
-        industry       || null,
-        stage          || null,
-        registered     || null,
+        gender            || null,
+        role              || null,
+        has_business      || null,
+        business_name     || null,
+        position          || null,
+        industry          || null,
+        stage             || null,
+        registered        || null,
         biggest_challenge || null,
-        expectations   || null,
-        referral_source|| null,
-        attended_before|| null,
-        join_community || null,
-        submitted_at   || null,
+        expectations      || null,
+        referral_source   || null,
+        attended_before   || null,
+        join_community    || null,
+        submitted_at      || null,
     ];
 
     pool.query(query, values, (err, result) => {
