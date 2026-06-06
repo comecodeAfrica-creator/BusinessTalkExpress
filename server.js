@@ -19,7 +19,7 @@ router.use((req, res, next) => {
         res.append('Access-Control-Allow-Origin', origin);
     }
     res.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.append('Access-Control-Allow-Headers', 'Content-Type, x-api-key');  //  added x-api-key
     if (req.method === 'OPTIONS') return res.sendStatus(200);
     next();
 });
